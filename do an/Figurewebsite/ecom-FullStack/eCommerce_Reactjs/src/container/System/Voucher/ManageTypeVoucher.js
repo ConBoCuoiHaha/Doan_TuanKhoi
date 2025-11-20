@@ -14,10 +14,10 @@ import {
     Link,
     Redirect
 } from "react-router-dom";
-const ManageTypeShip = () => {
+const ManageTypeVoucher = () => {
 
     const [dataTypeVoucher, setdataTypeVoucher] = useState([])
-    const [count, setCount] = useState('')
+    const [count, setCount] = useState(0)
     const [numberPage, setnumberPage] = useState('')
     useEffect(() => {
         try {
@@ -30,7 +30,7 @@ const ManageTypeShip = () => {
                 })
                 if (arrData && arrData.errCode === 0) {
                     setdataTypeVoucher(arrData.data)
-                    setCount(Math.ceil(arrData.count / PAGINATION.pagerow))
+                    setCount(arrData.count ? Math.ceil(arrData.count / PAGINATION.pagerow) : 0)
                 }
             }
             fetchData();
@@ -55,7 +55,7 @@ const ManageTypeShip = () => {
             })
             if (arrData && arrData.errCode === 0) {
                 setdataTypeVoucher(arrData.data)
-                setCount(Math.ceil(arrData.count / PAGINATION.pagerow))
+                setCount(arrData.count ? Math.ceil(arrData.count / PAGINATION.pagerow) : 0)
             }
 
         } else toast.error("Xóa loại voucher thất bại")
@@ -98,11 +98,11 @@ const ManageTypeShip = () => {
                     <div className='row'>
 
                         <div className='col-12 mb-2'>
-                            <button style={{ float: 'right' }} onClick={() => handleOnClickExport()} className="btn btn-success" >Xuất excel <i class="fa-solid fa-file-excel"></i></button>
+                            <button style={{ float: 'right' }} onClick={() => handleOnClickExport()} className="btn btn-success" >Xuất excel <i className="fa-solid fa-file-excel"></i></button>
                         </div>
                     </div>
                     <div className="table-responsive">
-                        <table className="table table-bordered" style={{ border: '1' }} width="100%" cellspacing="0">
+                        <table className="table table-bordered" style={{ border: '1' }} width="100%" cellSpacing="0">
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -160,4 +160,4 @@ const ManageTypeShip = () => {
         </div>
     )
 }
-export default ManageTypeShip;
+export default ManageTypeVoucher;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { getDetailAddressUserByIdService } from '../../services/userService';
 
-import { Modal, ModalHeader, ModalFooter, ModalBody, Button } from 'reactstrap';
+import { Modal, ModalFooter, ModalBody, Button } from 'reactstrap';
 
 const AddressUsersModal = (props) => {
     const [inputValues, setInputValues] = useState({

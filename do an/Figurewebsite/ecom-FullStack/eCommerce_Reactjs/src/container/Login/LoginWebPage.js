@@ -191,7 +191,7 @@ const LoginWebPage = () => {
                             <div className="row">
                                 {/* Brand Box */}
                                 <div className="col-sm-6 brand">
-                                    <a href="#" className="logo"><span></span></a>
+                                    <a href="/" className="logo"><span></span></a>
                                     <div className="heading">
                                         <h2>wibu shop</h2>
                                         
@@ -213,7 +213,7 @@ const LoginWebPage = () => {
                                             </div>
                                             <div className="CTA">
                                                 <input onClick={() => handleLogin()} type="submit" value="Đăng nhập" />
-                                                <a style={{ cursor: 'pointer', }} className="switch">Tài khoản mới</a>
+                                                <button type="button" style={{ background: 'transparent', border: 'none', cursor: 'pointer' }} className="switch">Tài khoản mới</button>
                                             </div>
                                             <FacebookLoginButton text="Đăng nhập với Facebook" iconSize="25px" style={{ width: "300px", height: "40px", fontSize: "16px", marginTop: "40px", marginBottom: "10px" }} onClick={() => signInwithFacebook()} />
                                             <GoogleLoginButton text="Đăng nhập với Google" iconSize="25px" style={{ width: "300px", height: "40px", fontSize: "16px" }} onClick={() => signInwithGoogle()} />
@@ -249,7 +249,7 @@ const LoginWebPage = () => {
                                             </div>
                                             <div className="CTA">
                                                 <input onClick={() => handleSaveUser()} type="submit" value="Lưu" id="submit" />
-                                                <a style={{ cursor: 'pointer' }} className="switch">Tôi có tài khoản</a>
+                                                <button type="button" style={{ background: 'transparent', border: 'none', cursor: 'pointer' }} className="switch">Tôi có tài khoản</button>
                                             </div>
                                         </form>
                                     </div>{/* End Signup Form */}

@@ -4,7 +4,7 @@ import MainFeature from "../../component/HomeFeature/MainFeature";
 import ProductFeature from "../../component/HomeFeature/ProductFeature";
 import NewProductFeature from "../../component/HomeFeature/NewProductFeature"
 import HomeBlog from '../../component/HomeFeature/HomeBlog';
-import { getAllBanner, getProductFeatureService, getProductNewService, getNewBlog, getProductRecommendService } from '../../services/userService';
+import { getAllBanner, getProductFeatureService, getProductNewService, getNewBlog } from '../../services/userService';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

@@ -1,26 +1,32 @@
-import React, { useEffect, useState,useRef  } from 'react';
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState,useRef, useCallback  } from 'react';
+
 import socketIOClient from "socket.io-client";
 import {loadMessage} from '../../services/userService'
 import moment from 'moment';
-require('dotenv').config();
+
 const host = process.env.REACT_APP_BACKEND_URL;
 function ChatWindow(props) {
   const [mess, setMess] = useState([]);
   const [userData, setuserData] = useState({});
   const [message, setMessage] = useState('');
-  const [id, setId] = useState();
+
   const [user, setUser] = useState({})
   const socketRef = useRef();
- 
+  const fetchMessage = useCallback(async() =>{
+   
+  
+    let res = await loadMessage(props.roomId,props.userId)
+    if(res){
+      setMess(res.data)
+      setuserData(res.data.userData)
+    }
+  }, [props.roomId, props.userId])
   useEffect(() => {
     socketRef.current = socketIOClient.connect(host)
     const userData = JSON.parse(localStorage.getItem('userData'));
     setUser(userData)
     
-    socketRef.current.on('getId', data => {
-      setId(data)
-    }) // phần này đơn giản để gán id cho mỗi phiên kết nối vào page. Mục đích chính là để phân biệt đoạn nào là của mình đang chat.
+    
    
     if(props.roomId){
      
@@ -39,16 +45,7 @@ function ChatWindow(props) {
     return () => {
       socketRef.current.disconnect();
     };
-  }, [props.roomId]);
-  let fetchMessage = async() =>{
-   
-  
-    let res = await loadMessage(props.roomId,props.userId)
-    if(res){
-      setMess(res.data)
-      setuserData(res.data.userData)
-    }
-  }
+  }, [props.roomId, fetchMessage]);
   let sendMessage = () => {
    
     if(message !== null) {
@@ -83,30 +80,30 @@ function ChatWindow(props) {
                 <span className="la la-ellipsis-h ks-icon" />
               </button>
               <div className="dropdown-menu dropdown-menu-right ks-simple" aria-labelledby="dropdownMenuButton">
-                <a className="dropdown-item" href="#">
+                <button type="button" className="dropdown-item">
                   <span className="la la-user-plus ks-icon" />
                   <span className="ks-text">Add members</span>
-                </a>
-                <a className="dropdown-item" href="#">
+                </button>
+                <button type="button" className="dropdown-item">
                   <span className="la la-eye-slash ks-icon" />
                   <span className="ks-text">Mark as unread</span>
-                </a>
-                <a className="dropdown-item" href="#">
+                </button>
+                <button type="button" className="dropdown-item">
                   <span className="la la-bell-slash-o ks-icon" />
                   <span className="ks-text">Mute notifications</span>
-                </a>
-                <a className="dropdown-item" href="#">
+                </button>
+                <button type="button" className="dropdown-item">
                   <span className="la la-mail-forward ks-icon" />
                   <span className="ks-text">Forward</span>
-                </a>
-                <a className="dropdown-item" href="#">
+                </button>
+                <button type="button" className="dropdown-item">
                   <span className="la la-ban ks-icon" />
                   <span className="ks-text">Spam</span>
-                </a>
-                <a className="dropdown-item" href="#">
+                </button>
+                <button type="button" className="dropdown-item">
                   <span className="la la-trash-o ks-icon" />
                   <span className="ks-text">Delete</span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -119,9 +116,9 @@ function ChatWindow(props) {
                  mess.map((item,index) =>{
                  if(item.userData){
                   return(
-                    <li key={index} className={item.userData.id == user.id ? "ks-item ks-from" : "ks-item ks-self"}>
+                    <li key={index} className={item.userData.id === user.id ? "ks-item ks-from" : "ks-item ks-self"}>
                     <span className="ks-avatar ks-offline">
-                      <img src={item.userData.image} width={36} height={36} className="rounded-circle" />
+                      <img src={item.userData.image} width={36} height={36} className="rounded-circle" alt="" />
                     </span>
                     <div className="ks-body">
                       <div className="ks-header">
@@ -133,7 +130,7 @@ function ChatWindow(props) {
                   </li>
                   )
                  }
-                 
+                 return null;
                  })
                 }
                
